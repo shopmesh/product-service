@@ -3,8 +3,15 @@ name: product-service-ci
 on:
   push:
     branches: [main, develop]
+    paths:
+      - 'src/**'
+      - 'Dockerfile'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/**'
   pull_request:
     branches: [main, develop]
+  workflow_dispatch:
 
 jobs:
 
@@ -23,7 +30,7 @@ jobs:
     with:
       service_name: product-service
       service_path: .
-      run_trivy: ${{ github.event_name == 'pull_request' }}
+      run_trivy: true
     secrets: inherit
 
   push:
